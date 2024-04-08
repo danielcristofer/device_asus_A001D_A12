@@ -1,5 +1,5 @@
 echo "Cloning Max Shot Device Tree and stuff"
-git clone https://github.com/danielcristofer/kernel_asus_A001D -b 11 kernel/asus/A001D --depth=1
+git clone https://github.com/danielcristofer/kernel_asus_A001D -b 11 kernel/asus/A001D
 git clone https://github.com/danielcristofer/vendor_asus_A001D -b lineage-18.1 vendor/asus/A001D
 git clone https://github.com/danielcristofer/external_ant-wireless_antradio-library external/ant-wireless/antradio-library
 
