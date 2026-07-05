@@ -14,9 +14,9 @@
 # limitations under the License.
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/banana_A001D.mk
+    $(LOCAL_DIR)/lineage_A001D.mk
 
 COMMON_LUNCH_CHOICES := \
-    banana_A001D-user \
-    banana_A001D-userdebug \
-    banana_A001D-eng
+    lineage_A001D-user \
+    lineage_A001D-userdebug \
+    lineage_A001D-eng
