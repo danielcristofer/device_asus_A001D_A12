@@ -1,6 +1,6 @@
 echo "Cloning Max Shot Device Tree and stuff"
-git clone https://github.com/GuilianoS/kernel_asus_A001D.git kernel/asus/A001D --depth=1
-git clone https://github.com/redznn/vendor_asus_A001D.git vendor/asus/A001D
+git clone https://github.com/danielcristofer/kernel_asus_A001D -b 11 kernel/asus/A001D --depth=1
+git clone https://github.com/danielcristofer/vendor_asus_A001D -b lineage-19.1 vendor/asus/A001D
 
 echo "Cloning HALS"
 rm -rf hardware/qcom-caf/msm8996/audio
