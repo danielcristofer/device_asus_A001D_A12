@@ -22,15 +22,15 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 $(call inherit-product, device/asus/A001D/device.mk)
 
 # Inherit some common ArrowOS stuff.
-$(call inherit-product, vendor/banana/config/common.mk)
+$(call inherit-product, vendor/lineage/config/common.mk)
 
 # Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := A001D
-PRODUCT_NAME := banana_A001D
+PRODUCT_NAME := lineage_A001D
 PRODUCT_BRAND := asus
 PRODUCT_MODEL := ASUS_A001D
 PRODUCT_MANUFACTURER := asus
-BANANA_MAINTAINER:="Redznn & criperm19"
+lineage_MAINTAINER:="danielcristofer"
 
 # Target
 TARGET_BOOT_ANIMATION_RES := 1080
