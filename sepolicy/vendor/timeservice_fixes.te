@@ -1,0 +1,2 @@
+allow system_server timeservice_app:process getattr;
+allow timeservice_app zygote:unix_stream_socket getopt;

@@ -58,3 +58,57 @@ allow untrusted_app_29 zygote:unix_stream_socket getopt;
 
 # leitura de propriedade de hardware qemu (galeria consultando prop de emulação)
 allow untrusted_app_29 qemu_hw_prop:file read;
+
+# storaged/updater_app — completando padrão de "process getattr"
+allow system_server storaged:process getattr;
+allow system_server updater_app:process getattr;
+allow surfaceflinger updater_app:process getattr;
+allow updater_app zygote:unix_stream_socket getopt;
+
+# vendor_default_prop — completar para system_app (já existe regra igual para platform_app)
+allow system_app vendor_default_prop:file { getattr open };
+
+# Linker shim (TARGET_LD_SHIM_LIBS) verificando carregamento de camera.msm8953.so
+# globalmente no sistema — comportamento esperado do mecanismo de shim.
+allow system_app vendor_file:file { getattr read };
+allow priv_app vendor_file:file { getattr read };
+allow platform_app vendor_file:file { getattr read };
+allow shell vendor_file:file { getattr read };
+allow netd vendor_file:file { getattr read };
+
+# Mais domínios completando o padrão "process getattr" / zygote getopt
+allow system_server cameraserver:process getattr;
+allow system_server system_suspend:process getattr;
+allow system_server shell:process getattr;
+
+# Linker shim também acionado pelo dex2oat durante compilação em background
+allow dex2oat vendor_file:file { getattr read };
+
+# Settings lendo informação de paginação do kernel (tela de armazenamento/memória)
+allow system_app proc_pagetypeinfo:file { read open getattr };
+
+# adb root inspecionando processos do sistema (uso ativo de debug via `adb root`)
+allow adbroot self:capability sys_ptrace;
+allow adbroot system_app:file read;
+allow adbroot system_app:dir search;
+
+# system_app (AsyncTask de armazenamento) chamando vold via binder
+allow system_app vold:binder call;
+allow vold system_app:process getattr;
+
+# Completando regras de adbroot/radio já existentes
+allow adbroot system_app:file open;
+allow adbroot system_app:process getattr;
+allow radio untrusted_app_29:file { read open };
+allow radio untrusted_app_29:process getattr;
+
+# Linker shim acionado pelo logpersist
+allow logpersist vendor_file:file { getattr read };
+
+# apexd — consulta de módulos via Settings
+allow system_app apexd:binder call;
+allow apexd self:capability sys_ptrace;
+
+# init criando diretório de compatibilidade uid_* dentro de sysfs
+# (padrão legado de kernels MSM8953/Android 8-9 para cgroups)
+allow init sysfs:dir create;
