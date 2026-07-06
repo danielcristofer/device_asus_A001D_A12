@@ -1,0 +1,60 @@
+# Regras identificadas via audit2allow durante trabalho de enforcing
+# Denials de "process getattr" (checagem de existência de processo) e
+# leituras de contexto SELinux (/proc/<pid>/attr/current) usadas por
+# telephony/installd/surfaceflinger/system_server em operações normais.
+
+# installd — freezer de apps (Android 12+)
+allow installd self:capability sys_ptrace;
+allow installd system_server:dir search;
+allow installd system_server:file { open read };
+allow installd system_server:process getattr;
+
+# radio — leitura de contexto de outros processos (telephony)
+allow radio platform_app:file read;
+allow radio platform_app:process getattr;
+allow radio priv_app:dir search;
+allow radio priv_app:file { open read };
+allow radio priv_app:process getattr;
+allow radio system_app:dir search;
+allow radio system_app:file { open read };
+allow radio system_app:process getattr;
+allow radio system_server:dir search;
+allow radio system_server:file { open read };
+allow radio system_server:process getattr;
+allow radio untrusted_app_29:dir search;
+
+# surfaceflinger — checagem de existência de processos de apps
+allow surfaceflinger permissioncontroller_app:process getattr;
+allow surfaceflinger platform_app:process getattr;
+allow surfaceflinger priv_app:process getattr;
+allow surfaceflinger system_app:process getattr;
+allow surfaceflinger system_server:process getattr;
+allow surfaceflinger untrusted_app_29:process getattr;
+
+# system_server — checagem de existência de processos diversos
+allow system_server audioserver:process getattr;
+allow system_server bluetooth:process getattr;
+allow system_server mediaextractor:process getattr;
+allow system_server mediametrics:process getattr;
+allow system_server mediaprovider:process getattr;
+allow system_server mediaprovider_app:process getattr;
+allow system_server network_stack:process getattr;
+allow system_server permissioncontroller_app:process getattr;
+allow system_server priv_app:process getattr;
+allow system_server radio:process getattr;
+allow system_server surfaceflinger:process getattr;
+allow system_server system_app:process getattr;
+allow system_server untrusted_app:process getattr;
+allow system_server untrusted_app_29:process getattr;
+
+# vold — checagem de existência do system_server
+allow vold system_server:process getattr;
+
+# apps — socket do zygote (usap pool)
+allow platform_app zygote:unix_stream_socket getopt;
+allow priv_app zygote:unix_stream_socket getopt;
+allow untrusted_app zygote:unix_stream_socket getopt;
+allow untrusted_app_29 zygote:unix_stream_socket getopt;
+
+# leitura de propriedade de hardware qemu (galeria consultando prop de emulação)
+allow untrusted_app_29 qemu_hw_prop:file read;
