@@ -112,3 +112,112 @@ allow apexd self:capability sys_ptrace;
 # init criando diretório de compatibilidade uid_* dentro de sysfs
 # (padrão legado de kernels MSM8953/Android 8-9 para cgroups)
 allow init sysfs:dir create;
+
+# system_server verificando existência do mediaserver
+allow system_server mediaserver:process getattr;
+
+# TEMPORÁRIO: /sys/fs/cgroup deveria ser tipo cgroup2, mas o kernel atual
+# (3.18, sem CONFIG_MEMCG/CGROUP_PIDS/CGROUP_BPF) nunca monta cgroup2 ali,
+# deixando esse path como sysfs puro. Corrigir de vez exige rebuild do
+# kernel com essas configs habilitadas (planejado para branch separado).
+allow system_server sysfs:dir { read open };
+
+# apexd verificando existência/contexto do system_server
+allow apexd system_server:process getattr;
+allow apexd system_server:file read;
+allow apexd system_server:dir search;
+
+# ueventd acessando nó de block device durante enumeração de hardware
+allow ueventd block_device:blk_file { read open };
+
+# logpersist — persistência do boot_log.txt em /cache (feature padrão)
+allow logpersist self:capability dac_override;
+allow logpersist cache_file:dir { read open write add_name };
+allow logpersist cache_file:file { create append open getattr ioctl };
+
+# vendor_init acessando diretório de dados do seemp (telemetria) — tipo
+# é privado de plataforma apesar do nome "vendor_"
+allow vendor_init vendor_seemp_data_file:dir getattr;
+
+# Cgroup uid_* (mesmo problema sistêmico de cgroup2 ausente no kernel)
+allow system_server sysfs:dir create;
+
+# vendor_default_prop completando para mais domínios de app
+allow untrusted_app vendor_default_prop:file { getattr open };
+allow isolated_app vendor_default_prop:file { getattr open };
+
+# Continuação de process getattr / zygote getopt
+allow surfaceflinger mediaprovider:process getattr;
+allow mediaprovider zygote:unix_stream_socket getopt;
+
+# apexd/drmserver lendo contexto de system_app
+allow apexd system_app:file read;
+allow apexd system_app:dir search;
+allow apexd system_app:process getattr;
+allow drmserver system_app:dir search;
+allow drmserver system_app:file read;
+
+# system_app chamando netd via binder (AsyncTask de rede/configurações)
+allow system_app netd:binder call;
+
+# radio <-> surfaceflinger, direção que faltava
+allow surfaceflinger radio:process getattr;
+allow radio surfaceflinger:dir search;
+allow radio surfaceflinger:file read;
+allow radio surfaceflinger:process getattr;
+
+# Galeria lendo propriedade de hardware qemu
+allow untrusted_app_29 qemu_hw_prop:file { open getattr };
+
+# App de Rádio FM acessando o tuner físico
+allow system_app zygote:unix_stream_socket getopt;
+
+# Completar radio -> surfaceflinger (faltava open)
+allow radio surfaceflinger:file open;
+
+# crash_dump lendo propriedade de plataforma
+allow crash_dump hwservicemanager_prop:file { open getattr };
+
+# Google Play Services (gmscore_app) — mesmo padrão de sempre, novo domínio
+allow system_server gmscore_app:process getattr;
+allow priv_app gmscore_app:process getattr;
+allow priv_app gmscore_app:file read;
+allow priv_app gmscore_app:dir search;
+allow radio gmscore_app:process getattr;
+allow radio gmscore_app:file read;
+allow radio gmscore_app:dir search;
+allow untrusted_app radio:process getattr;
+
+# gmscore_app lendo propriedade vendor (mesmo padrão de platform_app/system_app)
+allow gmscore_app vendor_default_prop:file { getattr open };
+
+# system_server verificando existência do keystore
+allow system_server keystore:process getattr;
+
+# apexd/idmap/drmserver completando leitura de contexto do system_app
+allow apexd system_app:file open;
+allow idmap system_app:file { read open };
+allow idmap system_app:dir search;
+allow idmap system_app:process getattr;
+
+# FUSE passthrough do MediaProvider (scoped storage) criando arquivo
+# de controle interno (.bh) via kernel worker thread
+allow kernel self:capability dac_override;
+allow kernel mnt_user_file:dir search;
+allow kernel mnt_user_file:lnk_file read;
+allow kernel fuse:dir { search write add_name create };
+allow kernel fuse:file { create open };
+
+# Completar open() que faltou nas regras anteriores de gmscore_app
+allow priv_app gmscore_app:file open;
+allow radio gmscore_app:file open;
+
+# surfaceflinger -> gmscore_app, direção que faltava
+allow surfaceflinger gmscore_app:process getattr;
+
+# surfaceflinger lendo cmdline do HAL de composição gráfica
+
+# system_server verificando existência de mais processos vendor
+allow system_server vendor_qtelephony:process getattr;
+allow system_server vendor_dataservice_app:process getattr;
+allow system_server secure_element:process getattr;

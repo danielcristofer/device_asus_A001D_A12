@@ -1,0 +1,6 @@
+# Goodix HAL escrevendo templates de digital
+allow hal_fingerprint_default fingerprintd_data_file:dir { write add_name remove_name };
+
+# Leitura de brilho da tela durante captura (usado por ambos HALs de fp)
+allow hal_fingerprint_default sysfs_graphics:dir search;
+allow hal_fingerprint_default sysfs_graphics:file read;

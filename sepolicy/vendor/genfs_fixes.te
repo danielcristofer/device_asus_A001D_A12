@@ -1,0 +1,48 @@
+# Linker shim (TARGET_LD_SHIM_LIBS) intercepta o carregamento dessa lib
+# em TODO processo do sistema — regra única e permanente, em vez de
+# uma allow por domínio a cada novo processo que aparecer no log.
+allow domain vendor_camera_shim_lib_file:file { getattr read open map execute };
+
+# Leitura de status de subsistema (kgsl-hyp/subsysN/name) por diversos
+# daemons de hardware Qualcomm — informação read-only, sem risco.
+allow rmt_storage sysfs:file { read open };
+allow vendor_per_mgr sysfs:file { read open };
+allow sensors sysfs:file { read open };
+allow hal_sensors_default sysfs:file { read open };
+allow hal_gnss_qti sysfs:file { read open };
+allow wcnss_service sysfs:file { read open };
+allow ims sysfs:file { read open };
+allow hal_imsrtp sysfs:file { read open };
+allow hal_rcsservice sysfs:file { read open };
+allow atfwd sysfs:file { read open };
+allow location sysfs:file { read open };
+allow cnd sysfs:file { read open };
+allow netmgrd sysfs:file { read open };
+allow time_daemon sysfs:file { read open };
+allow port-bridge sysfs:file { read open };
+allow mm-qcamerad sysfs:file { read open };
+
+# wcnss_service — leitura/escrita de propriedades de wifi/config
+allow wcnss_service system_prop:file { read open getattr };
+allow wcnss_service wifi_prop:property_service set;
+
+# mm-qcamerad — leitura de propriedade default (catch-all)
+allow mm-qcamerad default_prop:file { read open getattr };
+
+# vendor_init — leituras de propriedade no boot antes das próprias
+# namespaces serem totalmente carregadas
+allow vendor_init default_prop:file read;
+allow vendor_init bluetooth_prop:file read;
+allow vendor_init cache_file:file unlink;
+
+# App de Rádio FM acessando o tuner físico (fm_radio_device é tipo vendor)
+allow system_app fm_radio_device:chr_file { read open ioctl };
+
+# crash_dump lendo propriedades para gerar tombstone/relatório de erro
+allow crash_dump vendor_fm_prop:file { open getattr };
+allow crash_dump bluetooth_prop:file { open getattr };
+allow crash_dump vendor_fm_radio_app_prop:file { open getattr };
+
+# surfaceflinger lendo cmdline do HAL de composição gráfica (tipo vendor)
+allow surfaceflinger hal_graphics_composer_default:dir search;
+allow surfaceflinger hal_graphics_composer_default:file { read open getattr };
