@@ -46,3 +46,15 @@ allow crash_dump vendor_fm_radio_app_prop:file { open getattr };
 # surfaceflinger lendo cmdline do HAL de composição gráfica (tipo vendor)
 allow surfaceflinger hal_graphics_composer_default:dir search;
 allow surfaceflinger hal_graphics_composer_default:file { read open getattr };
+
+# libc++.so de compatibilidade VNDK copiado manualmente para o vendor
+# (device.mk) — lido por múltiplos processos do sistema, mesmo padrão
+# do shim de câmera. Regra única para todo domínio, em vez de crescer
+# uma allow por processo a cada ciclo de teste.
+allow domain vendor_libcxx_shim_file:file { getattr read open map execute };
+
+# HALs de câmera lendo propriedades de plataforma
+allow mm-qcamerad system_prop:file { read open getattr };
+allow hal_camera_default persist_debug_prop:file { read open getattr };
+allow hal_camera_default bootanim_system_prop:file { read open getattr };
+allow hal_camera_default default_prop:file { read open getattr };

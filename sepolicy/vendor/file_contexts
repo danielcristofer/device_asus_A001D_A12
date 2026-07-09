@@ -54,3 +54,4 @@
 /dev/blfp                                                       u:object_r:fingerprint_device:s0
 /(vendor|system/vendor)/bin/hw/btlfpserver                      u:object_r:hal_fingerprint_default_exec:s0
 /vendor/lib/hw/camera\.msm8953\.so u:object_r:vendor_camera_shim_lib_file:s0
+/vendor/lib64/libc\+\+\.so u:object_r:vendor_libcxx_shim_file:s0

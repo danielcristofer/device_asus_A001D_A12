@@ -221,3 +221,32 @@ allow surfaceflinger gmscore_app:process getattr;
 allow system_server vendor_qtelephony:process getattr;
 allow system_server vendor_dataservice_app:process getattr;
 allow system_server secure_element:process getattr;
+
+# surfaceflinger monitorando a animação de boot
+allow surfaceflinger bootanim:dir search;
+allow surfaceflinger bootanim:file { read open };
+
+# Novos pares de process getattr / leitura de contexto
+allow vold vdc:process getattr;
+allow keystore vold:dir search;
+allow keystore vold:file { read open };
+allow keystore vold:process getattr;
+allow vold apexd:process getattr;
+allow apexd system_server:file open;
+allow system_server statsd:process getattr;
+allow system_server netd:process getattr;
+allow system_server shared_relro:process getattr;
+allow radio statsd:dir search;
+allow radio statsd:file { read open };
+allow radio statsd:process getattr;
+allow radio network_stack:dir search;
+allow radio network_stack:file { read open };
+allow radio network_stack:process getattr;
+
+# drmserver e installd completando leitura de contexto do system_app
+allow drmserver system_app:file open;
+allow drmserver system_app:process getattr;
+allow system_app installd:binder call;
+allow installd system_app:file read;
+allow installd system_app:dir search;
+allow installd system_app:file open;
