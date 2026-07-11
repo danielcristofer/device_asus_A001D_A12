@@ -250,3 +250,54 @@ allow system_app installd:binder call;
 allow installd system_app:file read;
 allow installd system_app:dir search;
 allow installd system_app:file open;
+
+# radio <-> untrusted_app (Chrome), completando o padrão de sempre
+allow radio untrusted_app:dir search;
+allow radio untrusted_app:file read;
+
+# system_server verificando processos isolados (sandbox do Chrome: GPU/renderer)
+allow system_server isolated_app:process getattr;
+
+# app_zygote (processo pai dos isolados do Chrome) lendo propriedade vendor
+allow app_zygote vendor_default_prop:file { read open getattr };
+
+# Chrome (untrusted_app) lendo propriedades diversas no startup
+allow untrusted_app aac_drc_prop:file { open getattr };
+allow untrusted_app ab_update_gki_prop:file { open getattr };
+allow untrusted_app adbd_prop:file { open getattr };
+
+# Chrome consultando atributos do block device de userdata (provável
+# checagem de espaço/criptografia de armazenamento)
+allow untrusted_app userdata_block_device:blk_file getattr;
+
+# priv_app (Google App / GSA) lendo propriedade vendor — faltava esse domínio
+allow priv_app vendor_default_prop:file { open getattr };
+
+# gmscore_app lendo propriedades de adbd
+allow gmscore_app system_adbd_prop:file { read open getattr };
+allow gmscore_app adbd_prop:file { read open getattr };
+
+# installd verificando existência do system_app
+allow installd system_app:process getattr;
+
+# system_app chamando storaged/system_suspend via binder (AsyncTasks de Settings)
+allow system_app storaged:binder call;
+allow system_app system_suspend:binder call;
+allow system_suspend system_app:file read;
+allow system_suspend system_app:dir search;
+
+# vendor_dataservice_app lendo contexto do system_app (novo domínio)
+allow vendor_dataservice_app system_app:dir search;
+allow vendor_dataservice_app system_app:file { read open };
+allow vendor_dataservice_app system_app:process getattr;
+
+# atfwd (vendor_qtelephony) usando socket do zygote
+allow vendor_qtelephony zygote:unix_stream_socket getopt;
+
+# radio -> untrusted_app, faltava open especificamente
+allow radio untrusted_app:file open;
+allow radio untrusted_app:process getattr;
+
+# Completando system_suspend -> system_app (faltava open + process getattr)
+allow system_suspend system_app:file open;
+allow system_suspend system_app:process getattr;
