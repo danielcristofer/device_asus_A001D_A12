@@ -28,9 +28,9 @@ $(call inherit-product, vendor/lineage/config/common_full_phone.mk)
 # Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := A001D
 PRODUCT_NAME := lineage_A001D
-PRODUCT_BRAND := asus
-PRODUCT_MODEL := ASUS_A001D
-PRODUCT_MANUFACTURER := asus
+PRODUCT_BRAND := Asus
+PRODUCT_MODEL := ZenFone
+PRODUCT_MANUFACTURER := Asus
 lineage_MAINTAINER:="danielcristofer"
 
 # Target

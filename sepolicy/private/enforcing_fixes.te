@@ -301,3 +301,8 @@ allow radio untrusted_app:process getattr;
 # Completando system_suspend -> system_app (faltava open + process getattr)
 allow system_suspend system_app:file open;
 allow system_suspend system_app:process getattr;
+
+# isolated_app (sandbox) lendo contexto do gmscore_app
+allow isolated_app gmscore_app:dir search;
+allow isolated_app gmscore_app:process getattr;
+allow isolated_app gmscore_app:file read;
