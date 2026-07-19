@@ -195,6 +195,12 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/sysconfig/component-overrides.xml:$(TARGET_COPY_OUT_VENDOR)/etc/sysconfig/component-overrides.xml
 
+# Charger
+
+PRODUCT_PACKAGES += \
+    charger \
+    charger_res_images
+
 # Dex
 PRODUCT_DEXPREOPT_SPEED_APPS += \
     SystemUI \

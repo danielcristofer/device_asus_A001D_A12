@@ -1,3 +1,6 @@
+#!/bin/bash
+TOP=$(pwd)   # ou $(realpath .)
+
 echo "Cloning Max Shot Device Tree and stuff"
 git clone https://github.com/danielcristofer/kernel_asus_A001D -b 11 kernel/asus/A001D --depth=1
 git clone https://github.com/danielcristofer/vendor_asus_A001D -b lineage-19.1 vendor/asus/A001D
@@ -36,6 +39,10 @@ cd ../..
 echo "If cherry-pick fails use https://gerrit.aicp-rom.com/q/topic:twelve-ultralegacy-devices"
 echo "Applying patch: Remove internal problem dialog"
 cd frameworks/base
-git am --signoff < device/asus/A001D/patches/frameworks_base/0001-Remove-internal-problem-dialog.patch || true
+if ! git log --oneline | grep -q "Remove internal problem dialog"; then
+    git am --signoff < "$TOP/device/asus/A001D/patches/frameworks_base/0001-Remove-internal-problem-dialog.patch" || true
+else
+    echo "Patch already applied, skipping."
+fi
 cd ../..
 echo "Done"
