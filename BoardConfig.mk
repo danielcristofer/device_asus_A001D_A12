@@ -16,7 +16,7 @@
 
 DEVICE_PATH := device/asus/A001D
 
-BOARD_VENDOR := asus
+BOARD_VENDOR := ASUS
 
 # Architecture
 TARGET_ARCH := arm64
@@ -104,6 +104,7 @@ TARGET_LD_SHIM_LIBS := \
 # Charger
 BOARD_CHARGER_ENABLE_SUSPEND := true
 BOARD_CHARGER_DISABLE_INIT_BLANK := true
+BOARD_CHARGER_SHOW_PERCENTAGE := true
 
 # Recovery
 TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/etc/fstab.qcom

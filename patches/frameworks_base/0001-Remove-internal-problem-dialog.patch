@@ -1,0 +1,34 @@
+From 1d5d8b570c95b28459d2ec5b0f121166f319930b Mon Sep 17 00:00:00 2001
+From: danielcristofer <danielcristofer@gmail.com>
+Date: Sun, 19 Jul 2026 01:08:05 +0000
+Subject: [PATCH] Remove internal problem dialog (vendor fingerprint mismatch)
+
+---
+ .../com/android/server/wm/ActivityTaskManagerService.java     | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/services/core/java/com/android/server/wm/ActivityTaskManagerService.java b/services/core/java/com/android/server/wm/ActivityTaskManagerService.java
+index 08f3b1a8c6e0..56d3cb6bff01 100644
+--- a/services/core/java/com/android/server/wm/ActivityTaskManagerService.java
++++ b/services/core/java/com/android/server/wm/ActivityTaskManagerService.java
+@@ -5497,7 +5497,7 @@ public class ActivityTaskManagerService extends IActivityTaskManager.Stub {
+                     }
+                 } catch (RemoteException e) {
+                 }
+-
++/*
+                 if (!Build.isBuildConsistent()) {
+                     Slog.e(TAG, "Build fingerprint is not consistent, warning user");
+                     mUiHandler.post(() -> {
+@@ -5514,7 +5514,7 @@ public class ActivityTaskManagerService extends IActivityTaskManager.Stub {
+                         }
+                     });
+                 }
+-            }
++*/            }
+         }
+ 
+         @Override
+-- 
+2.25.1
+

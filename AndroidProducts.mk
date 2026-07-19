@@ -14,9 +14,9 @@
 # limitations under the License.
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/lineage_A001D.mk
+    $(LOCAL_DIR)/nad_A001D.mk
 
 COMMON_LUNCH_CHOICES := \
-    lineage_A001D-user \
-    lineage_A001D-userdebug \
-    lineage_A001D-eng
+    nad_A001D-user \
+    nad_A001D-userdebug \
+    nad_A001D-eng

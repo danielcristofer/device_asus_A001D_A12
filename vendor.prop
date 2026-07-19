@@ -236,3 +236,7 @@ ro.oem_unlock_supported=true
 
 # Set cutoff voltage to 3400mV
 ro.cutoff_voltage_mv=3400
+
+ro.build.description=WW_Phone-user 8.1.0 OPM1 15.32.1902.653 release-keys
+ro.build.fingerprint=asus/WW_Phone/ASUS_A001D_2:8.1.0/OPM1/15.32.1902.653-20190307:user/release-keys
+ro.build.version.security_patch=2021-12-05
