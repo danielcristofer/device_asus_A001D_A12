@@ -22,16 +22,15 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 $(call inherit-product, device/asus/A001D/device.mk)
 
 # Inherit some common Nusantara stuff.
-$(call inherit-product, vendor/nusantara/config/common.mk)
-$(call inherit-product, vendor/nusantara/config/common_full_phone.mk)
+$(call inherit-product, vendor/lineage/config/common.mk)
+$(call inherit-product, vendor/lineage/config/common_full_phone.mk)
 
 # Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := A001D
-PRODUCT_NAME := nad_A001D
+PRODUCT_NAME := lineage_A001D
 PRODUCT_BRAND := ASUS
 PRODUCT_MODEL := ZenFone
 PRODUCT_MANUFACTURER := ASUS
-maintainer_name:="danielcristofer"
 
 # Target
 TARGET_BOOT_ANIMATION_RES := 1080
