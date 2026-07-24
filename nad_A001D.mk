@@ -28,7 +28,7 @@ TARGET_FACE_UNLOCK_SUPPORTED :=true
 
 # Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := A001D
-PRODUCT_NAME := aosp_A001D
+PRODUCT_NAME := nad_A001D
 PRODUCT_BRAND := ASUS
 PRODUCT_MODEL := ZenFone
 PRODUCT_MANUFACTURER := ASUS
