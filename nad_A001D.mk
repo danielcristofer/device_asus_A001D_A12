@@ -21,9 +21,9 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 # Inherit from A001D device
 $(call inherit-product, device/asus/A001D/device.mk)
 
-# Inherit some common AOSP stuff.
-$(call inherit-product, vendor/aosp/config/common.mk)
-$(call inherit-product, vendor/aosp/config/telephony.mk)
+# Inherit some common Nusantara stuff.
+$(call inherit-product, vendor/nad/config/common.mk)
+$(call inherit-product, vendor/nad/config/common_full_phone.mk)
 TARGET_FACE_UNLOCK_SUPPORTED :=true
 
 # Device identifier. This must come after all inclusions
