@@ -21,13 +21,14 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 # Inherit from A001D device
 $(call inherit-product, device/asus/A001D/device.mk)
 
-# Inherit some common Nusantara stuff.
+# Inherit some common AOSP stuff.
 $(call inherit-product, vendor/aosp/config/common.mk)
 $(call inherit-product, vendor/aosp/config/telephony.mk)
+TARGET_FACE_UNLOCK_SUPPORTED :=true
 
 # Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := A001D
-PRODUCT_NAME := lineage_A001D
+PRODUCT_NAME := aosp_A001D
 PRODUCT_BRAND := ASUS
 PRODUCT_MODEL := ZenFone
 PRODUCT_MANUFACTURER := ASUS

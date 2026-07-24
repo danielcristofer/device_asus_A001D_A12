@@ -14,9 +14,9 @@
 # limitations under the License.
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/aex_A001D.mk
+    $(LOCAL_DIR)/aosp_A001D.mk
 
 COMMON_LUNCH_CHOICES := \
-    aex_A001D-user \
-    aex_A001D-userdebug \
-    aex_A001D-eng
+    aosp_A001D-user \
+    aosp_A001D-userdebug \
+    aosp_A001D-eng
