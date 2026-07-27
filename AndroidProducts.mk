@@ -14,9 +14,9 @@
 # limitations under the License.
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/aosp_A001D.mk
+    $(LOCAL_DIR)/cherish_A001D.mk
 
 COMMON_LUNCH_CHOICES := \
-    aosp_A001D-user \
-    aosp_A001D-userdebug \
-    aosp_A001D-eng
+    cherish_A001D-user \
+    cherish_A001D-userdebug \
+    cherish_A001D-eng
