@@ -17,18 +17,21 @@
 # Inherit from those products. Most specific first.
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/product_launched_with_p.mk)
+
+# Inherit some common CherishOS stuff.
+$(call inherit-product, vendor/cherish/config/common_full_phone.mk)
+TARGET_FACE_UNLOCK_SUPPORTED :=true
+
+# Vanilla build stuff.
+CHERISH_VANILLA := true
 
 # Inherit from A001D device
 $(call inherit-product, device/asus/A001D/device.mk)
 
-# Inherit some common AOSP stuff.
-$(call inherit-product, vendor/aosp/config/common.mk)
-$(call inherit-product, vendor/aosp/config/telephony.mk)
-TARGET_FACE_UNLOCK_SUPPORTED :=true
-
 # Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := A001D
-PRODUCT_NAME := aosp_A001D
+PRODUCT_NAME := cherish_A001D
 PRODUCT_BRAND := ASUS
 PRODUCT_MODEL := ZenFone
 PRODUCT_MANUFACTURER := ASUS
