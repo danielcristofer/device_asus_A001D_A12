@@ -34,4 +34,12 @@ git cherry-pick 010b772593639c9fdb4392ac976d5f3da4ea5e57
 git cherry-pick --abort
 cd ../..
 echo "If cherry-pick fails use https://gerrit.aicp-rom.com/q/topic:twelve-ultralegacy-devices"
+echo "Applying patch: Remove internal problem dialog"
+cd frameworks/base
+if ! git log --oneline | grep -q "Remove internal problem dialog"; then
+    git am --signoff < "$TOP/device/asus/A001D/patches/frameworks_base/0001-Remove-internal-problem-dialog.patch" || true
+else
+    echo "Patch already applied, skipping."
+fi
+cd ../..
 echo "Done"
